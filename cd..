@@ -1,0 +1,153 @@
+#!/bin/bash
+
+#amount of lines getting deleted
+tvalue=5
+#Amongus
+read -r -d '' amongus << EOM
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠈⢻⣿⣿⡄
+⠀⠀⠀⠀⠀⠀⠀⣸⣿⡏⠀⠀⠀⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⢰⣿⣿⣯⠁⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣷⡄
+⠀⠀⣀⣤⣴⣶⣶⣿⡟⠀⠀⠀⢸⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷
+⠀⢰⣿⡟⠋⠉⣹⣿⡇⠀⠀⠀⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿⣿⣿
+⠀⢸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃
+⠀⣸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻⣿⡇
+⠀⣿⣿⠁⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧
+⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+⠀⢿⣿⡆⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇
+⠀⠸⣿⣧⡀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠃
+⠀⠀⠛⢿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⣰⣿⣿⣷⣶⣶⣶⣶⠶⠀⢠⣿⣿
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⣽⣿⡏⠁⠀⠀⢸⣿⡇
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇
+⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏
+⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⠿⠋⠁
+EOM
+
+#lines our amongsus is
+linecount=19
+
+text=$amongus
+
+help(){
+echo " ------- Options -------"
+echo "  -e, --exitenabled               ctrg+c can be used"
+echo "  -m, --message <message>         write message bevor File"
+echo "  -t, --times <int>               amount of lines getting deleted"
+echo "  -f, --file filename             content of file is getting used"
+}
+
+usage(){
+    echo "Usage: $0 [-e] [-m <message>] [-t <+int>] [-f <filename>]" 1>&2
+
+}
+
+exit_abnormal() {
+    usage
+    exit
+}
+
+cleanup()
+{
+    trap - SIGINT
+    stty echo
+    exit
+}
+
+# : wants argument
+VALID_ARGS=$(getopt -o em:t:hf: --long exitenabled,times:,message:,help,file: -- "$@")
+if [[ $? -ne 0 ]]; then
+    exit 1;
+fi
+eval set -- "$VALID_ARGS"
+while [ : ]; do
+  case "$1" in
+    -e | --exitenabled)
+        e="TRUE"
+        shift
+        ;;
+    -m | --message)
+        m="TRUE"
+        mvalue="$2"
+        shift 2
+        ;;
+    -t | --times)
+        tvalue="$2"
+        re_isanum='^[0-9]+$'
+        if ! [[ $tvalue =~ $re_isanum ]] ; then
+            echo "-t|--times: TIMES must be a positive, whole number."
+            exit_abnormal
+            exit 1
+        elif [ $tvalue -eq "0" ]; then
+            echo "-t|--times: TIMES must be greater than zero."
+            exit_abnormal
+        fi
+
+        t="TRUE"
+        tvalue="$2"
+        shift 2
+        ;;
+    -f | --file)
+        f="TRUE"
+        fvalue="$2"
+        shift 2
+        ;;
+    -h | --help)
+        usage
+        echo ""
+        help
+        exit
+        ;;
+    --) shift;
+        break
+        ;;
+  esac
+done
+
+
+
+if [ "$e" == "TRUE" ] ; then
+        trap cleanup SIGINT
+else
+        trap "" SIGINT
+fi
+if [ "$f" == "TRUE" ] ; then
+    if [ ! -f "$fvalue" ]; then
+        echo "$fvalue does not exist."
+        exit 1
+    fi
+        text="$(cat $fvalue)"
+        linecount=$(wc -l $fvalue | awk '{ print $1 }')
+fi
+stty -echo
+
+#if a message is given, we need to delete 3 more lines
+if [ "$m" == "TRUE" ] ; then
+    ((linecount+=3))
+fi
+
+i=1
+for (( i = 0; i <= $tvalue; i++ )) ; do
+    #check if a message is given, if yes print it
+    if [ "$m" == "TRUE" ] ; then
+        echo "$(toilet -f future --gay $mvalue)"
+    fi
+
+    #print image
+    toilet -f term --gay "$text"
+
+    #wait a second
+    sleep 1;
+
+    #delete linecount amount of lines from terminal
+    for (( j = 0; j <= $linecount; j++ )) ; do
+        printf '\033[1A\033[K'
+    done
+done
+
+if [ !$e ] ; then
+    trap - SIGINT
+fi
+
+stty echo
