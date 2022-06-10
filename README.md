@@ -1,12 +1,12 @@
 # cd..
 Meme like sl for cd ..
 
-# ------- Options -------
+# Options
 
-- -e, --exitenabled               ctrg+c can be used
-- -m, --message <message>         write message bevor File
-- -t, --times <int>               amount of lines getting deleted
-- -f, --file filename             content of file is getting used
+-e, --exitenabled               ctrg+c can be used <br/>
+-m, --message <message>         write message bevor File <br/>
+-t, --times <int>               amount of lines getting deleted <br/>
+-f, --file filename             content of file is getting used <br/>
 
 
   
