@@ -1,0 +1,20 @@
+#!/bin/bash
+
+NEW_NAME=".cd.."
+
+echo "installing cd.. ..."
+CUR_PATH="$(pwd)"
+#PARENT="$(dirname "$CUR_PATH")"
+echo "$PARENT"
+if [ ! -f "$CUR_PATH/cd.." ]; then
+    echo "$CUR_PATH/cd.. does not exist."
+    exit 1
+fi
+mkdir "$PARENT/$NEW_NAME"
+
+sudo mv "$CUR_PATH/cd.."  "$PARENT/$NEW_NAME"
+sudo ln -s "$PARENT/$NEW_NAME/cd.." "/bin/cd.."
+
+rm -r "$CUR_PATH/.git"
+
+rmdir -rf
