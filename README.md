@@ -1,6 +1,15 @@
 # cd..
 Meme like sl for cd ..
 
+# Installation
+
+to install
+-clone the repo <br/>
+- **./icd..** to install cd..<br/>
+-it will creat new folder **.cd..** and copy **cd..** into it<br/>
+-a softlink is made to the bin folder<br/>
+-the repo get deleted with rm -rf<br/>
+- **cd..** can be used
 # Options
 
 -e, --exitenabled               ctrg+c can be used <br/>
