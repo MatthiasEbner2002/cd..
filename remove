@@ -1,0 +1,27 @@
+#!/bin/bash
+
+{ # try
+
+    echo -n "removing softlink: /bin/cd.. ..." &&
+    sudo rm /bin/cd.. &&
+    echo "Done" &&
+
+    echo -n "removing /lib/cd../default.txt..." &&
+    sudo rm /lib/cd../default.txt &&
+    echo "Done" &&
+
+    echo -n "removing /lib/cd.. ..." &&
+    sudo rmdir /lib/cd.. &&
+    echo "Done" &&
+
+    echo -n "removing .cd.." &&
+    sudo rm -rf ../.cd.. &&
+    echo "Done" &&
+    echo "All files Deleted!"
+
+} || { # catch
+    echo "Error"
+    exit 1 
+}
+
+

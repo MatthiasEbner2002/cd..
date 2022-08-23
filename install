@@ -1,0 +1,61 @@
+#!/bin/bash
+
+NEW_NAME=".cd.."
+
+echo "start installing cd.. ..."
+CUR_PATH="$(pwd)"
+PARENT="$(dirname "$CUR_PATH")"
+#echo "$PARENT"
+if [ ! -f "$CUR_PATH/cd.." ]; then
+    echo "$CUR_PATH/cd.. does not exist."
+    exit 1
+fi
+
+if [ -f "/bin/cd.." ]; then
+    echo "/bin/cd.. already exists"
+    exit 1
+fi
+
+
+{
+    echo -n "Creating $NEW_NAME ..." &&
+    sudo mkdir "$PARENT/$NEW_NAME" &&
+    echo "Done" &&
+
+    echo -n "moving cd.. to $NEW_NAME ..." &&
+    sudo mv "$CUR_PATH/cd.."  "$PARENT/$NEW_NAME" &&
+    echo "Done" &&
+
+    echo -n "moving remove to $NEW_NAME ..." &&
+    sudo mv "$CUR_PATH/remove"  "$PARENT/$NEW_NAME" &&
+    echo "Done" &&
+
+    echo -n "creating /lib/cd.. ..." &&
+    sudo mkdir /lib/cd.. &&  
+    echo "Done" &&
+
+    echo -n "moving default... to /lib/cd.. ..." &&
+    sudo mv "$CUR_PATH/default.txt" /lib/cd.. &&  
+    echo "Done" &&
+
+    echo -n "creating softlink /bin/cd.. ..." &&
+    sudo ln -s "$PARENT/$NEW_NAME/cd.." "/bin/cd.." &&
+    echo "Done"
+
+} || { # catch
+    echo "Error"
+    exit 1 
+}
+
+
+
+FILES_COUNT="$(ls | wc -l)"
+
+if [ $FILES_COUNT != 2 ]; then
+    echo "wrong amount of files left"
+    exit 1
+else
+    echo "deleting..."
+    rm -rf "$CUR_PATH"
+    exit 1
+fi
