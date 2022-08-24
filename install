@@ -34,8 +34,12 @@ fi
     sudo mkdir /lib/cd.. &&  
     echo "Done" &&
 
-    echo -n "moving default... to /lib/cd.. ..." &&
+    echo -n "moving default to /lib/cd.. ..." &&
     sudo mv "$CUR_PATH/default.txt" /lib/cd.. &&  
+    echo "Done" &&
+
+    echo -n "moving colorful_print to /lib/cd.. ..." &&
+    sudo mv "$CUR_PATH/colorful_print" /lib/cd.. &&  
     echo "Done" &&
 
     echo -n "creating softlink /bin/cd.. ..." &&

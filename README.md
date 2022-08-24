@@ -1,17 +1,14 @@
 # cd..
+
 Meme like sl for cd ..
 
 default image:
 
 ![image](https://user-images.githubusercontent.com/77750231/179476427-f38142cc-a3cd-4af0-86b6-56860d8c48f6.png)
 
-____
-
 ## Tech
 
 - bashscript
-
-____
 
 ## Installation
 
@@ -32,6 +29,8 @@ start installation script:
 
 - creat new folder in the same folder as the git repo called .cd..
 - file **cd..** and **remove** is moved to the new folder
+- creat folder **/lib/cd..**
+- move **color_print** and **default.txt** to **/lib/cd../**
 - a softlink is made to the bin folder
 - the repo gets delted (including the **install** file)
 
@@ -45,8 +44,6 @@ installation is finished and can be used.
 cd..
 ```
 
-____
-
 ## Remove
 
 To delete all files from cd.. go to folder .cd.. and use command
@@ -58,22 +55,19 @@ To delete all files from cd.. go to folder .cd.. and use command
 `remove` does :
 
 - removes softlink /bin/cd..
-- removes file /lib/cd../default.txt and folder /lib/cd..
+- removes file **/lib/cd../default.txt**, **/lib/cd../colorful_print** and folder /lib/cd..
 - removes .cd..
-
-____
 
 ## Options
 
 | Option      | Description |
 | ----------- | ----------- |
 |**-e**, **--exitenabled** | ctrg+c can be used |
-|**-m**, **--message** \<message> | write message bevor File |
 |**-t**, **--times** \<int> | amount of lines getting deleted |
 |**-f**, **--file** filename | content of file is getting used |
 
-____
-
+<!--|**-m**, **--message** \<message> | write message bevor File |-->
 ## Usage
 
-/usr/bin/cd.. [-e] [-m \<message>] [-t <+int>] [-f \<filename>]
+<!--/usr/bin/cd.. [-e] [-m \<message>] [-t <+int>] [-f \<filename>] -->
+/usr/bin/cd.. [-e] [-t <+int>] [-f \<filename>]

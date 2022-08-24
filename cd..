@@ -1,25 +1,21 @@
 #!/bin/bash
 
-#amount of lines getting deleted
-tvalue=5
-#Amongus
-amongus=$(< /lib/cd../default.txt)
+source /lib/cd../colorful_print
 
-#lines our amongsus is
-linecount=19
-
-text=$amongus
+tvalue=5 # default lines deletet
+default_img=/lib/cd../default.txt # default iamge
 
 help(){
 echo " ------- Options -------"
 echo "  -e, --exitenabled               ctrg+c can be used"
-echo "  -m, --message <message>         write message bevor File"
+#echo "  -m, --message <message>         write message bevor File"
 echo "  -t, --times <int>               amount of lines getting deleted"
 echo "  -f, --file filename             content of file is getting used"
 }
 
 usage(){
-    echo "Usage: $0 [-e] [-m <message>] [-t <+int>] [-f <filename>]" 1>&2
+    #echo "Usage: $0 [-e] [-m <message>] [-t <+int>] [-f <filename>]" 1>&2
+    echo "Usage: $0 [-e] [-t <+int>] [-f <filename>]" 1>&2
 
 }
 
@@ -47,11 +43,11 @@ while [ : ]; do
         e="TRUE"
         shift
         ;;
-    -m | --message)
-        m="TRUE"
-        mvalue="$2"
-        shift 2
-        ;;
+#    -m | --message)
+#        m="TRUE"
+#        mvalue="$2"
+#        shift 2
+#        ;;
     -t | --times)
         tvalue="$2"
         re_isanum='^[0-9]+$'
@@ -92,31 +88,44 @@ if [ "$e" == "TRUE" ] ; then
 else
         trap "" SIGINT
 fi
+
 if [ "$f" == "TRUE" ] ; then
     if [ ! -f "$fvalue" ]; then
         echo "$fvalue does not exist."
         exit 1
     fi
-        text="$(cat $fvalue)"
-        linecount=$(wc -l $fvalue | awk '{ print $1 }')
+    text="$(cat $fvalue)"
+    linecount=$(wc -l $fvalue | awk '{ print $1 }')
+
+else
+    if [ -f "$default_img" ]; then
+        text="$(< $default_img)"
+        text=$(add_color "$text")
+        linecount="$( echo "$text" | wc -l)"
+    else
+        text="FEHLER getting default image"
+        linecount=1
+    fi
 fi
+
 stty -echo
 
 #if a message is given, we need to delete 3 more lines
-if [ "$m" == "TRUE" ] ; then
-    ((linecount+=3))
-fi
+#if [ "$m" == "TRUE" ] ; then
+#    ((linecount+=3))
+#fi
 
 i=1
 for (( i = 0; i <= $tvalue; i++ )) ; do
     #check if a message is given, if yes print it
-    if [ "$m" == "TRUE" ] ; then
-        echo "$(toilet -f future --gay $mvalue)"
-    fi
+    #if [ "$m" == "TRUE" ] ; then
+    #    echo "$(toilet -f future --gay $mvalue)"
+    #fi
 
-    #print image
-    toilet -f term --gay "$text"
-
+    # print image
+    #toilet -f term --gay "$text"
+    echo "$text"
+    
     #wait a second
     sleep 1;
 
