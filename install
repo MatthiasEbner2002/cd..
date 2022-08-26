@@ -55,7 +55,7 @@ fi
 
 FILES_COUNT="$(ls | wc -l)"
 
-if [ $FILES_COUNT != 2 ]; then
+if [ $FILES_COUNT != 3 ]; then
     echo "wrong amount of files left"
     exit 1
 else
