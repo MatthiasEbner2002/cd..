@@ -1,11 +1,58 @@
 #!/bin/bash
 
+
+# : wants argument
+VALID_ARGS=$(getopt -o f: --long file: -- "$@")
+if [[ $? -ne 0 ]]; then
+    exit 1;
+fi
+eval set -- "$VALID_ARGS"
+while [ : ]; do
+  case "$1" in
+    -f | --file)
+        f="TRUE"
+        fvalue="$2"
+        shift 2
+        ;;
+    -h | --help)
+        usage
+        echo ""
+        help
+        exit
+        ;;
+    --) shift;
+        break
+        ;;
+  esac
+done
+
+
+if [ "$f" == "TRUE" ] ; then
+    if [ ! -f "$fvalue" ]; then
+        echo "$fvalue does not exist."
+        exit 1
+    fi
+fi
+
+
+
+
+
+
+
 NEW_NAME=".cd.."
 
 echo "start installing cd.. ..."
 CUR_PATH="$(pwd)"
 PARENT="$(dirname "$CUR_PATH")"
-#echo "$PARENT"
+
+IMAGE_PATH="$CUR_PATH/default.txt"
+
+if [ "$f" == "TRUE" ] ; then
+    IMAGE_PATH="$fvalue"
+fi
+
+
 if [ ! -f "$CUR_PATH/cd.." ]; then
     echo "$CUR_PATH/cd.. does not exist."
     exit 1
@@ -34,8 +81,8 @@ fi
     sudo mkdir /lib/cd.. &&  
     echo "Done" &&
 
-    echo -n "moving default to /lib/cd.. ..." &&
-    sudo mv "$CUR_PATH/default.txt" /lib/cd.. &&  
+    echo -n "moving image to /lib/cd.. ..." &&
+    sudo mv "$IMAGE_PATH" /lib/cd.. &&  
     echo "Done" &&
 
     echo -n "moving colorful_print to /lib/cd.. ..." &&
@@ -63,3 +110,24 @@ else
     rm -rf "$CUR_PATH"
     exit 1
 fi
+
+
+
+help(){
+echo " ------- Options -------"
+echo "  -e, --exitenabled               ctrg+c can be used"
+#echo "  -m, --message <message>         write message bevor File"
+echo "  -t, --times <int>               amount of lines getting deleted"
+echo "  -f, --file filename             content of file is getting used"
+}
+
+usage(){
+    #echo "Usage: $0 [-e] [-m <message>] [-t <+int>] [-f <filename>]" 1>&2
+    echo "Usage: $0 [-e] [-t <+int>] [-f <filename>]" 1>&2
+
+}
+
+exit_abnormal() {
+    usage
+    exit
+}
