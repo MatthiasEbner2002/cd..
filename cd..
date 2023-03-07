@@ -103,7 +103,7 @@ else
         text=$(add_color "$text")
         linecount="$( echo "$text" | wc -l)"
     else
-        text="FEHLER getting default image"
+        text="ERROR: getting default image"
         linecount=1
     fi
 fi
