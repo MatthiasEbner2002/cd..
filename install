@@ -1,8 +1,26 @@
 #!/bin/bash
 
 
+help(){
+echo " ------- Options -------"
+echo "  -f, --file filename             content of file is getting used"
+echo "  -h, --help                      to see help"
+}
+
+usage(){
+    echo "Usage: $0 [-h] [-f <filename>]" 1>&2
+
+}
+
+exit_abnormal() {
+    usage
+    exit
+}
+
+
+
 # : wants argument
-VALID_ARGS=$(getopt -o f: --long file: -- "$@")
+VALID_ARGS=$(getopt -o hf: --long help,file: -- "$@")
 if [[ $? -ne 0 ]]; then
     exit 1;
 fi
@@ -102,32 +120,7 @@ fi
 
 FILES_COUNT="$(ls | wc -l)"
 
-if [ $FILES_COUNT != 3 ]; then
-    echo "wrong amount of files left"
-    exit 1
-else
-    echo "deleting..."
-    rm -rf "$CUR_PATH"
-    exit 1
-fi
 
-
-
-help(){
-echo " ------- Options -------"
-echo "  -e, --exitenabled               ctrg+c can be used"
-#echo "  -m, --message <message>         write message bevor File"
-echo "  -t, --times <int>               amount of lines getting deleted"
-echo "  -f, --file filename             content of file is getting used"
-}
-
-usage(){
-    #echo "Usage: $0 [-e] [-m <message>] [-t <+int>] [-f <filename>]" 1>&2
-    echo "Usage: $0 [-e] [-t <+int>] [-f <filename>]" 1>&2
-
-}
-
-exit_abnormal() {
-    usage
-    exit
-}
+echo "deleting..."
+rm -rf "$CUR_PATH"
+exit 1
