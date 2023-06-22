@@ -30,8 +30,8 @@ color2=(
 '\033[0;31m'         # Red
 '\033[0;33m'         # Orange
 '\033[0;33m'         # Orange
-'\033[1;33m'           # Yellow
-'\033[1;33m'           # Yellow
+'\033[1;33m'         # Yellow
+'\033[1;33m'         # Yellow
 '\033[0;32m'         # Green
 '\033[0;32m'         # Green
 '\033[1;36m'         # Cyan

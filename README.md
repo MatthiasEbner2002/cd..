@@ -4,7 +4,14 @@ Meme like sl for cd ..
 
 default image:
 
-![image](https://user-images.githubusercontent.com/77750231/179476427-f38142cc-a3cd-4af0-86b6-56860d8c48f6.png)
+```
+──────▄▌▐▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▌
+───▄▄██▌█ BEEP BEEP
+▄▄▄▌▐██▌█ -5 LINES DELIVERY
+███████▌█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌
+▀(⊙)▀▀▀▀▀▀▀(⊙)(⊙)▀▀▀▀▀▀▀▀▀▀(⊙
+```
+
 
 ## Tech
 
