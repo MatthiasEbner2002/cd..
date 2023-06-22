@@ -1,21 +1,22 @@
 #!/bin/bash
-
+LIB_FILE="/usr/local/lib"   # the directory for the library
+BIN_FILE="/usr/local/bin"   # the directory for the binary
 { # try
 
-    echo -n "removing softlink: /bin/cd.. ..." &&
-    sudo rm /bin/cd.. &&
+    echo -n "removing softlink: $BIN_FILE/cd.. ..." &&
+    sudo rm $BIN_FILE/cd.. &&
     echo "Done" &&
 
-    echo -n "removing /lib/cd../default.txt..." &&
-    sudo rm /lib/cd../default.txt &&
+    echo -n "removing $LIB_FILE/cd../default.txt..." &&
+    sudo rm $LIB_FILE/cd../default.txt &&
     echo "Done" &&
 
-    echo -n "removing /lib/cd../colorful_print..." &&
-    sudo rm /lib/cd../colorful_print &&
+    echo -n "removing $LIB_FILE/cd../colorful_print..." &&
+    sudo rm $LIB_FILE/cd../colorful_print &&
     echo "Done" &&
 
-    echo -n "removing /lib/cd.. ..." &&
-    sudo rmdir /lib/cd.. &&
+    echo -n "removing $LIB_FILE/cd.. ..." &&
+    sudo rmdir $LIB_FILE/cd.. &&
     echo "Done" &&
 
     echo -n "removing .cd.." &&
@@ -24,7 +25,7 @@
     echo "All files Deleted!"
 
 } || { # catch
-    echo "Error"
+    echo "Error while removing files"
     exit 1 
 }
 

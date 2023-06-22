@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source /lib/cd../colorful_print
+source /usr/local/lib/cd../colorful_print
 
 tvalue=5 # default lines deletet
-default_img=/lib/cd../default.txt # default iamge
+default_img=/usr/local/lib/cd../default.txt # default iamge
 
 help(){
 echo " ------- Options -------"

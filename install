@@ -54,7 +54,8 @@ fi
 
 
 
-
+LIB_FILE="/usr/local/lib"   # the directory for the library
+BIN_FILE="/usr/local/bin"   # the directory for the binary
 
 
 
@@ -76,8 +77,8 @@ if [ ! -f "$CUR_PATH/cd.." ]; then
     exit 1
 fi
 
-if [ -f "/bin/cd.." ]; then
-    echo "/bin/cd.. already exists"
+if [ -f "$BIN_FILE/cd.." ]; then
+    echo "$BIN_FILE/cd.. already exists"
     exit 1
 fi
 
@@ -95,20 +96,20 @@ fi
     sudo mv "$CUR_PATH/remove"  "$PARENT/$NEW_NAME" &&
     echo "Done" &&
 
-    echo -n "creating /lib/cd.. ..." &&
-    sudo mkdir /lib/cd.. &&  
+    echo -n "creating $LIB_FILE/cd.. ..." &&
+    sudo mkdir $LIB_FILE/cd.. &&  
     echo "Done" &&
 
-    echo -n "moving image to /lib/cd.. ..." &&
-    sudo mv "$IMAGE_PATH" /lib/cd.. &&  
+    echo -n "moving image to $LIB_FILE/cd.. ..." &&
+    sudo mv "$IMAGE_PATH" $LIB_FILE/cd.. &&  
     echo "Done" &&
 
-    echo -n "moving colorful_print to /lib/cd.. ..." &&
-    sudo mv "$CUR_PATH/colorful_print" /lib/cd.. &&  
+    echo -n "moving colorful_print to $LIB_FILE/cd.. ..." &&
+    sudo mv "$CUR_PATH/colorful_print" $LIB_FILE/cd.. &&  
     echo "Done" &&
 
-    echo -n "creating softlink /bin/cd.. ..." &&
-    sudo ln -s "$PARENT/$NEW_NAME/cd.." "/bin/cd.." &&
+    echo -n "creating softlink $BIN_FILE/cd.. ..." &&
+    sudo ln -s "$PARENT/$NEW_NAME/cd.." "$BIN_FILE/cd.." &&
     echo "Done"
 
 } || { # catch
