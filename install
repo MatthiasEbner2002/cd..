@@ -52,7 +52,7 @@ if [ "$f" == "TRUE" ] ; then
     fi
 fi
 
-
+# Use '/usr/local/', because /usr/ is for the system and /usr/local/ is for the user and not system related
 
 LIB_FILE="/usr/local/lib"   # the directory for the library
 BIN_FILE="/usr/local/bin"   # the directory for the binary

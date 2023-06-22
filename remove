@@ -1,6 +1,11 @@
 #!/bin/bash
+
+
+# This script removes the files and directories created by the install script
+
 LIB_FILE="/usr/local/lib"   # the directory for the library
 BIN_FILE="/usr/local/bin"   # the directory for the binary
+
 { # try
 
     echo -n "removing softlink: $BIN_FILE/cd.. ..." &&
